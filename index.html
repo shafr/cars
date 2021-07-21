@@ -52,16 +52,13 @@
                 series: customSeries,
                 chart: {
                     height: 800,
-                    type: 'scatter',
-                },
-                markers: {
-                    size: 20
+                    type: 'bubble',
                 },
                 dataLabels: {
                     enabled: true
                 },
                 fill: {
-                    opacity: 0.5
+                    opacity: 0.6
                 },
                 title: {
                     text: header
@@ -72,12 +69,18 @@
                     type: 'numeric',
                     seriesName: 'KM',
                     min: 1,
-                    max: 160
+                    max: 150
                 },
                 yaxis: {
                     type: 'numeric',
                     min: 250,
-                    max: 500
+                    max: 520
+                },
+                plotOptions: {
+                    bubble: {
+                        minBubbleRadius: 2,
+                        maxBubbleRadius: 15,
+                    }
                 },
                 tooltip: {
                     x: {
@@ -122,7 +125,7 @@
                     {
                         name: 'SuperB',
                         data: data_m_superb
-                    },
+                    }, 
                     {
                         name: 'Mazda6',
                         data: data_m_mazda6
@@ -157,8 +160,8 @@
             var chart = new ApexCharts(document.querySelector("#sauto"), getGraph(series_sauto, '[SAUTO] Cars under 100k KM, 500k CZK, Automatic transmission, from year 2017'));
             chart.render();
 
-            var chart = new ApexCharts(document.querySelector("#mobilede"), getGraph(series_mobile_de, '[MOBILE_DE] Cars under 100k KM, 17500 EUR, Automatic transmission, from year 2017'));
-            chart.render();
+            var chart2 = new ApexCharts(document.querySelector("#mobilede"), getGraph(series_mobile_de, '[MOBILE_DE] Cars under 100k KM, 17500 EUR, Automatic transmission, from year 2017'));
+            chart2.render();
 
         });
     </script>
