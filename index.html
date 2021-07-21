@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>CARS</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web:400,600,700" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script src="data/mobilede/i40.js"></script>
+    <script src="data/mobilede/i30.js"></script>
+    <script src="data/mobilede/mondeo.js"></script>
+    <script src="data/mobilede/superb.js"></script>
+    <script src="data/mobilede/mazda6.js"></script>
+
+    <script src="data/sauto/i40.js"></script>
+    <script src="data/sauto/i30.js"></script>
+    <script src="data/sauto/mondeo.js"></script>
+    <script src="data/sauto/superb.js"></script>
+    <script src="data/sauto/mazda6.js"></script>
+
+    <style>
+        body {
+            background-color: #eff4f7;
+            color: #777;
+            font-family: 'Titillium Web', Arial, Helvetica, sans-serif
+        }
+
+        .content-area {
+            /* max-width: 1000px; */
+            max-height: 90%;
+            height: 500px;
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .box {
+            box-shadow: 0px 1px 22px -12px #607D8B;
+            background-color: #fff;
+            padding: 25px 35px 25px 30px;
+        }
+    </style>
+    <script>
+        function getGraph(customSeries, header){
+            let graph = {
+                series: customSeries,
+                chart: {
+                    height: 800,
+                    type: 'scatter',
+                },
+                markers: {
+                    size: 20
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                fill: {
+                    opacity: 0.5
+                },
+                title: {
+                    text: header
+                },
+
+                xaxis: {
+                    tickAmount: 1,
+                    type: 'numeric',
+                    seriesName: 'KM',
+                    min: 1,
+                    max: 160
+                },
+                yaxis: {
+                    type: 'numeric',
+                    min: 250,
+                    max: 500
+                },
+                tooltip: {
+                    x: {
+                        show: true,
+                        formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+                            return value + ".000 KM";
+                        }
+                    },
+                    y: {
+                        show: true,
+                        // formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+                        //     const gearbox = w.config.series[seriesIndex].data[dataPointIndex].gearbox
+                        //     const fuel = w.config.series[seriesIndex].data[dataPointIndex].fuel
+                        //     const locality = w.config.series[seriesIndex].data[dataPointIndex].locality
+                        //     const link = w.config.series[seriesIndex].data[dataPointIndex].link
+                        //     const seller = w.config.series[seriesIndex].data[dataPointIndex].seller
+                        // }
+                    },
+                    z: {
+                        title: "Years old"
+                    },
+                }
+            };  
+            return graph;
+        }
+
+        window.addEventListener("load", function () {
+
+            var series_mobile_de = [
+                    {
+                        name: 'i40',
+                        data: data_m_I40,
+                    },
+                    {
+                        name: 'i30',
+                        data: data_m_I30
+                    },
+                    {
+                        name: 'Mondeo',
+                        data: data_m_mondeo
+                    },
+                    {
+                        name: 'SuperB',
+                        data: data_m_superb
+                    },
+                    {
+                        name: 'Mazda6',
+                        data: data_m_mazda6
+                    }
+
+                ]
+
+                var series_sauto = [
+                    {
+                        name: 'i40',
+                        data: data_s_I40,
+                    },
+                    {
+                        name: 'i30',
+                        data: data_s_I30
+                    },
+                    {
+                        name: 'Mondeo',
+                        data: data_s_MONDEO
+                    },
+                    {
+                        name: 'SuperB',
+                        data: data_s_SUPERB
+                    },
+                    {
+                        name: 'Mazda6',
+                        data: data_s_MAZDA6
+                    }
+
+                ]
+                
+            var chart = new ApexCharts(document.querySelector("#sauto"), getGraph(series_sauto, '[SAUTO] Cars under 100k KM, 500k CZK, Automatic transmission, from year 2017'));
+            chart.render();
+
+            var chart = new ApexCharts(document.querySelector("#mobilede"), getGraph(series_mobile_de, '[MOBILE_DE] Cars under 100k KM, 17500 EUR, Automatic transmission, from year 2017'));
+            chart.render();
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="content-area">
+            <div class="container-fluid main">
+                <div class="row mt-2 mb-2">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div id="sauto"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2 mb-2">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div id="mobilede"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+</body>
+
+</html>
