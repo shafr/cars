@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Copy cars to clipboard
+// @name         Copy cars to clipboard (Sauto)
 // @namespace    http://tampermonkey.net/
 // @version      0.2
 // @description  try to take over the world!
@@ -25,15 +25,21 @@ function extractAllFields(eachOrder) {
     let price=$(eachOrder).find(".c-item__price").text().replace(/Kč/g, '').replace(/\s+/g, '');
     let link=$(eachOrder).find(".c-item__link").attr('href');
     let seller=$(eachOrder).find(".c-item__seller").text().replace(/\s\s+/g, ' ');
-    
 
     let [year, km, fuel, gearbox] = infoField.split(',')
     km=km.replace(/km/g, '').replace(/\s+/g, '')
+    km=Math.round(parseInt(km, 10)/1000)
+    year=2021-parseInt(year)
+    price=Math.round(parseInt(price, 10)/1000)
+
+    if (km===0) { km = 1}
+    if (year===0) { year = 1}
+
     // Get all params available to car
     let car = {
-        x: Math.round(parseInt(km, 10)/1000), //km
-        y: Math.round(parseInt(price, 10)/1000), //price
-        z: 2021-parseInt(year), //year
+        x: km, //km
+        y: price, //price
+        z: year, //year
         name: nameField,
         fuel: fuel.replace(/\s+/g, ''),
         gearbox: gearbox.replace(/\s+/g, ''),
